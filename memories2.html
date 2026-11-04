@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="Style2.css">
+  <title>Memories</title>
+  <style>
+    html, body {
+      margin: 0;
+      min-height: 100vh;
+      animation: bgColorCycle 15s ease infinite;
+      padding: 40px 20px;
+      font-family: sans-serif;
+      box-sizing: border-box;
+    }
+
+    @keyframes rainbowBorder {
+      0%, 100% { border-color: #ff0000; box-shadow: 0 0 12px #ff0000; }
+      16% { border-color: #ff9900; box-shadow: 0 0 12px #ff9900; }
+      33% { border-color: #ffff00; box-shadow: 0 0 12px #ffff00; }
+      50% { border-color: #00ff00; box-shadow: 0 0 12px #00ff00; }
+      66% { border-color: #00ffff; box-shadow: 0 0 12px #00ffff; }
+      83% { border-color: #9900ff; box-shadow: 0 0 12px #9900ff; }
+    }
+
+    @keyframes bgColorCycle {
+      0%   { background-color: #ff6b6b; }
+      25%  { background-color: #4ecdc4; }
+      50%  { background-color: #45b7d1; }
+      75%  { background-color: #f9ca24; }
+      100% { background-color: #ff6b6b; }
+    }
+
+    @keyframes popOut {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-8px) scale(1.04); }
+    }
+
+    @keyframes buttonPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    @keyframes floatHeart {
+      0% { transform: translateY(20px) rotate(-10deg); opacity: 0; }
+      20% { opacity: 0.7; }
+      100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+    }
+
+    .hearts-stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hearts-stars span {
+      position: absolute;
+      bottom: -30px;
+      animation: floatHeart linear infinite;
+      text-shadow: 0 2px 5px rgba(255,255,255,0.5);
+    }
+
+    .hearts-stars span:nth-child(1) { left: 5%; font-size: 18px; animation-duration: 9s; }
+    .hearts-stars span:nth-child(2) { left: 14%; font-size: 28px; animation-duration: 12s; animation-delay: -4s; }
+    .hearts-stars span:nth-child(3) { left: 23%; font-size: 14px; animation-duration: 8s; animation-delay: -2s; }
+    .hearts-stars span:nth-child(4) { left: 34%; font-size: 24px; animation-duration: 11s; animation-delay: -7s; }
+    .hearts-stars span:nth-child(5) { left: 43%; font-size: 16px; animation-duration: 10s; animation-delay: -1s; }
+    .hearts-stars span:nth-child(6) { left: 52%; font-size: 30px; animation-duration: 13s; animation-delay: -6s; }
+    .hearts-stars span:nth-child(7) { left: 63%; font-size: 15px; animation-duration: 9s; animation-delay: -3s; }
+    .hearts-stars span:nth-child(8) { left: 72%; font-size: 25px; animation-duration: 12s; animation-delay: -8s; }
+    .hearts-stars span:nth-child(9) { left: 84%; font-size: 17px; animation-duration: 10s; animation-delay: -5s; }
+    .hearts-stars span:nth-child(10) { left: 94%; font-size: 22px; animation-duration: 11s; animation-delay: -2s; }
+
+    .images-grid, .container { position: relative; z-index: 1; }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px 4px;
+      line-height: 0;
+      margin-top: 30px;
+    }
+
+    .container img {
+      width: min(140px, 40vw);
+      height: 180px;
+      object-fit: cover;
+      border: 5px solid #ff0000;
+      border-radius: 10px;
+      animation: rainbowBorder 3s linear infinite, popOut 2s ease-in-out infinite;
+    }
+
+    button {
+      cursor: pointer;
+      padding: 10px 14px;
+      animation: buttonPulse 1.2s ease-in-out infinite;
+      transition: box-shadow 0.2s ease;
+    }
+    button:hover {
+      box-shadow: 0 0 12px 4px rgba(255, 255, 255, 0.8);
+    }
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .image-card {
+      position: relative;
+      border: 5px solid #ff0000;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      animation: rainbowBorder 3s linear infinite, popOut 2.4s ease-in-out infinite;
+      transition: filter 0.25s ease;
+    }
+
+    .image-card:hover, .container img:hover {
+      filter: brightness(1.08);
+      animation-play-state: running, paused;
+      transform: translateY(-12px) scale(1.07);
+      z-index: 2;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      margin: 0;
+      padding: 18px 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hearts-stars" aria-hidden="true">
+  <span>♥</span><span>★</span><span>♥</span><span>★</span><span>♥</span>
+  <span>★</span><span>♥</span><span>★</span><span>♥</span><span>★</span>
+</div>
+
+<div class="images-grid">
+  <div class="image-card">
+    <img src="1.jfif" alt="Future Family">
+    <h3 class="image-title">Future Family</h3>
+  </div>
+  <div class="image-card">
+    <img src="2.jfif" alt="1st Time Vikings">
+    <h3 class="image-title">1st Time Vikings</h3>
+  </div>
+  <div class="image-card">
+    <img src="3.jfif" alt="1st Time Manila Zoo">
+    <h3 class="image-title">1st Time Manila Zoo</h3>
+  </div>
+  <div class="image-card">
+    <img src="4.jfif" alt="Birthday time">
+    <h3 class="image-title">Birthday time</h3>
+  </div>
+  <div class="image-card">
+    <img src="5.jfif" alt="1st Birthday together">
+    <h3 class="image-title">1st Birthday together</h3>
+  </div>
+
+  <div class="image-card">
+    <img src="7.jfif" alt="1st Vikings Birthday">
+    <h3 class="image-title">1st Vikings Birthday    </h3>
+  </div>
+  <div class="image-card">
+    <img src="8.jfif" alt="Gateway Bonding">
+    <h3 class="image-title">Gateway Bonding</h3>
+  </div>
+  <div class="image-card">
+    <img src="9.jfif" alt="Manila Zoo Trip">
+    <h3 class="image-title">Manila Zoo Trip</h3>
+  </div>
+
+  <div class="image-card">
+    <img src="11.jfif" alt="FisherMall Adventure">
+    <h3 class="image-title">FisherMall Adventure</h3>
+  </div>
+
+</body>
+</html>
